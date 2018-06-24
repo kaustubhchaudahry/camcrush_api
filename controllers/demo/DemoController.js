@@ -13,7 +13,6 @@ module.exports.getAll = function (data, res) {
     });
 };
 
-
 module.exports.save = function (data, res) {
     rules = {
         name: 'required',
@@ -48,9 +47,6 @@ module.exports.save = function (data, res) {
         return helper.response_error_json('Unable to insert data', res);
     });
 };
-
-
-
 
 module.exports.update = function (data, res) {
     rules = {

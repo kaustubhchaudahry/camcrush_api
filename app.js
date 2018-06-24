@@ -26,5 +26,4 @@ app.get('/', function(req, res){
 
 app.use('/demo', demo_routes);
 
-
 app.listen(config.port);
