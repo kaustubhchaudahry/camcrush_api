@@ -1,0 +1,24 @@
+{
+  "name": "api-framework",
+  "version": "1.0.0",
+  "description": "kaustubh framework for making api",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "kaustubh",
+    "framework",
+    "for",
+    "making",
+    "api"
+  ],
+  "author": "kaustubh chaudhary",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mysql": "^2.15.0",
+    "validatorjs": "^3.14.2"
+  }
+}
