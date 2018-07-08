@@ -2,88 +2,39 @@ var con = require('../../custom_packages/connection.js');
 var helper = require('../../helpers/helper.js');
 var Validator = require('validatorjs');
 
-module.exports.getAll = function (data, res) {
-    con.query('select * from student', function (err, result) {
-        if (err) {
-            return helper.response_json(400, 'Unable to fetch data', res);
-        }
-        ;
+module.exports.get = async function (data, res) {
+    var response = {};
 
-        return helper.response_json(200, 'success', res, result);
+    // menu master
+
+    await new Promise((resolve, reject) => {
+        con.query('select id,name from cc_menu_master where status=1', function (err, menu_master) {
+
+            if (err) {
+                return helper.response_json(400, 'Unable to fetch data', res, err);
+            }
+            ;
+
+            response.menu_master = menu_master;
+            resolve();
+        });
     });
-};
 
-module.exports.save = function (data, res) {
-    rules = {
-        name: 'required',
-        marks: 'required',
-        year: 'required',
-        class: 'required'
-    };
+    //version master
 
-    var validation = new Validator(data, rules);
+    await new Promise((resolve, reject) => {
+        con.query('select id,name,version,url from cc_version_master where status=1 order by created_at desc', function (err, version_master) {
 
-    if (validation.fails()) {
-        return helper.response_missing_json('Invalid parameter', res, validation.errors.all());
-    }
+            if (err) {
+                return helper.response_json(400, 'Unable to fetch data', res, err);
+            }
+            ;
 
-    sql_query = "insert into student(name,mark,year,class) value ?";
-
-    sql_param = [[
-        data.name,
-        data.marks,
-        data.year,
-        data.class
-    ]];
-
-    con.query(sql_query, [sql_param], function (err, result) {
-        console.log(err);
-        if (err) {
-            throw err.sqlMessage;
-        };
-        if(result.affectedRows>0) {
-            return helper.response_success_json('Data store successfully', res);
-        }
-        return helper.response_error_json('Unable to insert data', res);
+            response.version = version_master;
+            resolve();
+        });
     });
-};
 
-module.exports.update = function (data, res) {
-    rules = {
-        id: 'required',
-        name: 'required',
-        marks: 'required',
-        year: 'required',
-        class: 'required'
-    };
+    return helper.response_json(200, 'success', res, response);
 
-    var validation = new Validator(data, rules);
-
-    if (validation.fails()) {
-        return helper.response_missing_json('Invalid parameter', res, validation.errors.all());
-    }
-
-    sql_query = "update student" +
-        " set name=? , mark=?," +
-        "year=? , class=? where id=?";
-
-    sql_param = [
-        data.name,
-        data.marks,
-        data.year,
-        data.class,
-        data.id
-    ];
-
-    con.query(sql_query, sql_param, function (err, result) {
-
-        if (err) {
-            throw err.sqlMessage;
-        };
-
-        if(result.affectedRows>0) {
-            return helper.response_success_json('Data updated successfully', res);
-        }
-        return helper.response_error_json('Unable to update data', res);
-    });
 };
