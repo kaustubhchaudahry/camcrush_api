@@ -30,4 +30,9 @@ router.post('/', function (req, res) {
     LoginController.login(req.body, res);
 });
 
+router.post('/change-password', function (req, res) {
+
+    LoginController.changePassword(req.body, res);
+});
+
 module.exports = router;

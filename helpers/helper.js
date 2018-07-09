@@ -38,7 +38,7 @@ module.exports.response_error_json = function (msg, res, data) {
 
 
 module.exports.response_missing_json = function (msg, res, data) {
-    var code = 400; // PARAMETER MISSING
+    var code = 422 ; // PARAMETER MISSING
     var res_data = data || {};
     var response = {
         code: code,

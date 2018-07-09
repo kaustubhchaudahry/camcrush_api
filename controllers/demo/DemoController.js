@@ -6,8 +6,7 @@ module.exports.getAll = function (data, res) {
     con.query('select * from student', function (err, result) {
         if (err) {
             return helper.response_json(400, 'Unable to fetch data', res);
-        }
-        ;
+        };
 
         return helper.response_json(200, 'success', res, result);
     });

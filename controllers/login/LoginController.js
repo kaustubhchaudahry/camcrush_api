@@ -27,7 +27,45 @@ module.exports.login = async function (data, res) {
     //user name and password checking code
 
    await new Promise((resolve,reject) => {
-        con.query('select * from cc_student where email= ? and password= ? and  status=1 limit 1', [email, password], function (err, result) {
+
+       var sql_query='select ' +
+           'id,' +
+           'branch_id,' +
+           'school_id,' +
+           'class_id,' +
+           'division,' +
+           'first_name,' +
+           'last_name,' +
+           'dob,' +
+           'gender,' +
+           'blood_group,' +
+           'roll_no,' +
+           'adminssion_no,' +
+           'religion,' +
+           'adhar_number,' +
+           'photo,' +
+           'father_name,' +
+           'father_occu,' +
+           'father_phone,' +
+           'mother_name,' +
+           'mother_occ,' +
+           'mother_phono,' +
+           'email,' +
+           'nationality,' +
+           'present_address,' +
+           'city_id,' +
+           'state_id,' +
+           'pincode,' +
+           'per_address,' +
+           'per_city_id,' +
+           'per_state_id,' +
+           'per_pincode,' +
+           'parent_photo,' +
+           'start_time,' +
+           'end_time' +
+           ' from cc_student where email= ? and password= ? and  status=1 limit 1';
+
+        con.query(sql_query, [email, password], function (err, result) {
             if (err) {
                 return helper.response_json(400, 'Unable to fetch data', res, err);
             }
@@ -61,7 +99,7 @@ module.exports.login = async function (data, res) {
                     return helper.response_json(400, 'Something went wrong while fetch school menu', res, err);
                 }
 
-                response.school_menu=result;
+                response.school_menu_role=result;
                 resolve();
             });
         });
@@ -94,6 +132,8 @@ module.exports.login = async function (data, res) {
                 if (err) {
                     return helper.response_json(400, 'Something went wrong while Deleting Token', res, err);
                 }
+
+                response.token=token;
                 resolve();
             });
         });
@@ -103,6 +143,62 @@ module.exports.login = async function (data, res) {
         return helper.response_json(200, 'success', res, response);
     }
 
-    return helper.response_json(400, 'fail to login', res, {});
+    return helper.response_json(400, 'Invalid Credential', res, {});
+};
+
+module.exports.changePassword = async function (data, res) {
+
+    rules = {
+        student_id: 'required',
+        old_password: 'required',
+        new_password: 'required',
+    };
+
+    var validation = new Validator(data, rules);
+
+    if (validation.fails()) {
+        return helper.response_missing_json('Invalid parameter', res, validation.errors.all());
+    }
+
+
+    var student_id=data.student_id;
+    var old_password=data.old_password;
+    var new_password=data.new_password;
+
+    await new Promise((resolve,reject)=>{
+
+        sql_query="select * from cc_student where id=? and password=? and status=1";
+
+        con.query(sql_query, [student_id,old_password], function (err, result) {
+            if (err) {
+                return helper.response_json(400, 'Something went wrong', res, err);
+            }
+
+            if(result.length==0)
+            {
+                return helper.response_json(400, 'Invalid Old password', res, {});
+            }
+            resolve();
+        });
+    });
+
+    await new Promise((resolve,reject)=>{
+
+        sql_query="update cc_student set password=? where id=?";
+
+        con.query(sql_query, [new_password,student_id], function (err, result) {
+            if (err) {
+                return helper.response_json(400, 'Something went wrong', res, err);
+            }
+
+            if(result.affectedRows >0)
+            {
+                return helper.response_json(200, 'Password changed successfully', res, err);
+            }
+
+            resolve();
+        });
+    });
+
 };
 

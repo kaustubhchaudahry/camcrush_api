@@ -1,20 +1,17 @@
 var express = require('Express');
 var router = express.Router();
 var helper = require('../helpers/helper.js');
-var MasterController = require('../controllers/master/MasterController.js');
+var CameraController = require('../controllers/camera/CameraController.js');
 var CommonController = require('../controllers/common/CommonController.js');
-
 var con = require('../custom_packages/connection.js');
 
-router.use('/', function (req, res, next) {
-
+router.use('/', async function (req, res, next) {
     header = req.headers.header_token;
-    CommonController.validateToken(header,res,next);
+  CommonController.validateToken(header,res,next);
 });
 
-router.post('/', function(req, res){
-    MasterController.get({},res);
+router.post('/get-student-camera', function (req, res) {
+    CameraController.getStudentCamera(req.body, res);
 });
-
 
 module.exports = router;

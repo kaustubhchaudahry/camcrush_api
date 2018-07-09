@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 var demo_routes = require('./routes/demo_route.js');
 var master_routes = require('./routes/master_route.js');
 var login_routes = require('./routes/login_route.js');
+var camera_routes = require('./routes/camera_route.js');
 
 
 //use nexted routes
@@ -29,5 +30,6 @@ app.get('/', function(req, res){
 app.use('/demo', demo_routes);
 app.use('/master', master_routes);
 app.use('/login', login_routes);
+app.use('/camera', camera_routes);
 
 app.listen(config.port);
