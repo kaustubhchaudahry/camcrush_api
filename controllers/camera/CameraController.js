@@ -5,7 +5,7 @@ var Validator = require('validatorjs');
 module.exports.getStudentCamera = function (data, res) {
 
     rules = {
-        student_id: 'required',
+        student_id: 'required'
     };
 
     var validation = new Validator(data, rules);

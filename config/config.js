@@ -14,8 +14,6 @@ if(env==0)
     var database='camcrush';
 }
 
-
-
 module.exports.connection_config = {
     host: host,
     user: user,

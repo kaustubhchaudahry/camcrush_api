@@ -7,7 +7,7 @@ module.exports.login = async function (data, res) {
     rules = {
         email: 'required',
         password: 'required',
-        device_id: 'required',
+        device_id: 'required'
     };
 
     var validation = new Validator(data, rules);
@@ -20,7 +20,6 @@ module.exports.login = async function (data, res) {
     var password=data.password;
     var device_id=data.device_id;
     var response={};
-    var login=0;
     var school_id;
     var student_id;
 
@@ -43,7 +42,6 @@ module.exports.login = async function (data, res) {
            'adminssion_no,' +
            'religion,' +
            'adhar_number,' +
-           'photo,' +
            'father_name,' +
            'father_occu,' +
            'father_phone,' +
@@ -60,17 +58,16 @@ module.exports.login = async function (data, res) {
            'per_city_id,' +
            'per_state_id,' +
            'per_pincode,' +
-           'parent_photo,' +
            'start_time,' +
            'end_time' +
            ' from cc_student where email= ? and password= ? and  status=1 limit 1';
 
         con.query(sql_query, [email, password], function (err, result) {
+
             if (err) {
                 return helper.response_json(400, 'Unable to fetch data', res, err);
             }
 
-            login=1;
             response.details = result;
 
             resolve();
@@ -138,8 +135,6 @@ module.exports.login = async function (data, res) {
             });
         });
 
-
-
         return helper.response_json(200, 'success', res, response);
     }
 
@@ -159,7 +154,6 @@ module.exports.changePassword = async function (data, res) {
     if (validation.fails()) {
         return helper.response_missing_json('Invalid parameter', res, validation.errors.all());
     }
-
 
     var student_id=data.student_id;
     var old_password=data.old_password;
@@ -199,6 +193,5 @@ module.exports.changePassword = async function (data, res) {
             resolve();
         });
     });
-
 };
 

@@ -1,4 +1,4 @@
-var express = require('Express');
+var express = require('express');
 var router = express.Router();
 var helper = require('../helpers/helper.js');
 var CameraController = require('../controllers/camera/CameraController.js');
