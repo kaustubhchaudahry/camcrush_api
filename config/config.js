@@ -20,3 +20,4 @@ module.exports.connection_config = {
     password: password,
     database: database,
 };
+

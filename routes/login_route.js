@@ -16,4 +16,9 @@ router.post('/change-password', function (req, res) {
     LoginController.changePassword(req.body, res);
 });
 
+router.post('/get-school-menu-role', function (req, res) {
+
+    LoginController.getSchoolMenuRole(req.body, res);
+});
+
 module.exports = router;

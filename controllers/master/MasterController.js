@@ -20,7 +20,13 @@ module.exports.get = async function (data, res) {
         });
     });
 
-    //version master
+    return helper.response_json(200, 'success', res, response);
+
+};
+
+module.exports.getVersion = async function (data, res) {
+
+    var response = {};
 
     await new Promise((resolve, reject) => {
         con.query('select id,name,version,url from cc_version_master where status=1 order by created_at desc', function (err, version_master) {

@@ -1,24 +1,23 @@
 var express = require('express');
 var router = express.Router();
-var helper = require('../helpers/helper.js');
-var MasterController = require('../controllers/master/MasterController.js');
+var GeneralController = require('../controllers/general/GeneralController.js');
 var CommonController = require('../controllers/common/CommonController.js');
 
 var con = require('../custom_packages/connection.js');
 
 router.use('/', function (req, res, next) {
-
     header = req.headers.header_token;
     CommonController.validateToken(header,res,next);
 });
 
-router.post('/', function(req, res){
-    MasterController.get({},res);
+router.post('/', function (req, res) {
+res.send('welcome to general route');
 });
 
-router.post('/version',function(req,res)
-{
-   MasterController.getVersion({},res);
+router.post('/curent-timestamp', function (req, res) {
+   GeneralController.currentTimeStamp({},res);
 });
+
 
 module.exports = router;
+
