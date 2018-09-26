@@ -21,4 +21,9 @@ router.post('/get-school-menu-role', function (req, res) {
     LoginController.getSchoolMenuRole(req.body, res);
 });
 
+router.post('/forget-password', function (req, res) {
+
+    LoginController.forgetPassword(req.body, res);
+});
+
 module.exports = router;

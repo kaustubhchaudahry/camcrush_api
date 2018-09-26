@@ -231,7 +231,20 @@ module.exports.getSchoolMenuRole=async function (data, res) {
         return helper.response_json(400, 'error', res, response);
     });
 
-
-
 };
 
+module.exports.forgetPassword=async function (data, res) {
+
+    rules = {
+        username: 'required',
+    };
+
+    var validation = new Validator(data, rules);
+
+    if (validation.fails()) {
+        return helper.response_missing_json('Invalid parameter', res, validation.errors.all());
+    }
+
+    return helper.response_json(200, 'Your password has been mailed', res);
+
+};
