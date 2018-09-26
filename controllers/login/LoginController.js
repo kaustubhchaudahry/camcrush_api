@@ -59,6 +59,7 @@ module.exports.login = async function (data, res) {
             'per_state_id,' +
             'per_pincode,' +
             'start_time,' +
+            'changed_password,' +
             'end_time' +
             ' from cc_student where email= ? and password= ? and  status=1 limit 1';
 
