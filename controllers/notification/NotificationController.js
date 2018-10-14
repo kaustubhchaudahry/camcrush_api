@@ -28,7 +28,8 @@ module.exports.getNotification= function (data, res) {
         'descr,' +
         'DATE_FORMAT(time,"%d %M %Y") as day, ' +
         'DATE_FORMAT(time,"%h:%i %p") as time,' +
-        'DATE_FORMAT(created_at,"%Y-%m-%d %h:%i:%s") as created_at ' +
+        'DATE_FORMAT(created_at,"%Y-%m-%d %h:%i:%s") as created_at,' +
+        'type ' +
         'from cc_notification where school_id=? and branch_id=? and status=1';
 
     con.query(mysql_query,[school_id,branch_id] ,function (err, result) {
