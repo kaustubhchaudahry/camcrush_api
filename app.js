@@ -21,6 +21,7 @@ var camera_routes = require('./routes/camera_route.js');
 var general_routes = require('./routes/general_route.js');
 var holiday_route = require('./routes/holiday_route.js');
 var notification_route = require('./routes/notification_route.js');
+var event_route = require('./routes/event_route.js');
 
 
 //use nexted routes
@@ -36,5 +37,6 @@ app.use('/camera', camera_routes);
 app.use('/general', general_routes);
 app.use('/holiday', holiday_route);
 app.use('/notification', notification_route);
+app.use('/event', event_route);
 
 app.listen(config.port);
