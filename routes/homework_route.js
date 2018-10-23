@@ -9,7 +9,7 @@ router.use('/', async function (req, res, next) {
   CommonController.validateToken(header,res,next);
 });
 
-router.post('/', function (req, res) {
+router.post('/get-homework', function (req, res) {
     HomeworkController.getHomework(req.body, res);
 });
 
