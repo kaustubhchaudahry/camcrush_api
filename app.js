@@ -23,6 +23,7 @@ var holiday_route = require('./routes/holiday_route.js');
 var notification_route = require('./routes/notification_route.js');
 var event_route = require('./routes/event_route.js');
 var homework_route = require('./routes/homework_route.js');
+var attendance_route = require('./routes/attendance_route.js');
 
 
 //use nexted routes
@@ -40,5 +41,6 @@ app.use('/holiday', holiday_route);
 app.use('/notification', notification_route);
 app.use('/event', event_route);
 app.use('/homework', homework_route);
+app.use('/attendance', attendance_route);
 
 app.listen(config.port);
